@@ -17,7 +17,8 @@ import lombok.Data;
 public class TeProjects {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int projectID;
+	@Column(name="projectID", columnDefinition = "INT")
+	private long projectID;
 	
 	@Column(name="projectName", nullable = false, columnDefinition = "varchar(50)")
 	private String projectName;
@@ -39,13 +40,12 @@ public class TeProjects {
 	
 	@Column(name="updatedOn", nullable = false, columnDefinition = "DATETIME")
 	private Date updatedOn;
-	
-	
-	public int getProjectID() {
+
+	public long getProjectID() {
 		return projectID;
 	}
 
-	public void setProjectID(int projectID) {
+	public void setProjectID(long projectID) {
 		this.projectID = projectID;
 	}
 
@@ -104,6 +104,5 @@ public class TeProjects {
 	public void setUpdatedOn(Date updatedOn) {
 		this.updatedOn = updatedOn;
 	}
-
-
+	
 }

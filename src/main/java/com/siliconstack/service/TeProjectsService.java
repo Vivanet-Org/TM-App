@@ -10,4 +10,9 @@ public interface TeProjectsService {
 	
 	List<TeProjects> getAllTeProjects();
 	
+	TeProjects getProjectById(long projectID);
+	
+	TeProjects updateProject(TeProjects teProjects, long projectID);
+	
+	void deleteProject(long projectID);
 }
