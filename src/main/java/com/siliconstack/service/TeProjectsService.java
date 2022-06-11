@@ -6,7 +6,9 @@ import com.siliconstack.model.TeProjects;
 
 public interface TeProjectsService {
 	
-	TeProjects saveTeProjects(TeProjects TeProjects);
+	List<TeProjects> getProjectByProjectName(String projectName);
+	
+	TeProjects saveTeProjects(TeProjects teProjects);
 	
 	List<TeProjects> getAllTeProjects();
 	

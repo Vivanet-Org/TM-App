@@ -33,7 +33,15 @@ public class CreateProjectController {
 	// build create project REST API
 	@PostMapping(path="/createProject")
 	public ResponseEntity<TeProjects> saveEmployee(@RequestBody TeProjects teProjects){
-		return new ResponseEntity<TeProjects>(teProjectsService.saveTeProjects(teProjects), HttpStatus.CREATED);
+		try {
+			List<TeProjects> projectList = teProjectsService.getProjectByProjectName(teProjects.getProjectName());
+			if(projectList.size() == 0 ) {
+				return new ResponseEntity<TeProjects>(teProjectsService.saveTeProjects(teProjects), HttpStatus.CREATED);
+			}		
+			return new ResponseEntity<>(null, HttpStatus.ALREADY_REPORTED);
+		}catch(Exception e) {
+	        return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
 	}
 	
 	// build get all employees REST API
@@ -46,23 +54,35 @@ public class CreateProjectController {
 	// http://localhost:8080/projectId/1
 	@GetMapping(path="/projectId/{id}")
 	public ResponseEntity<TeProjects> getProjectById(@PathVariable("id") long projectID){
-		return new ResponseEntity<TeProjects>(teProjectsService.getProjectById(projectID), HttpStatus.OK);
+		try {
+			return new ResponseEntity<TeProjects>(teProjectsService.getProjectById(projectID), HttpStatus.OK);
+		}catch(Exception e) {
+	        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+	    }
 	}
 	
 	// build update project REST API
-	// http://localhost:8080/projects/1
+	// http://localhost:8080/projects/updateproject/1
 	@PutMapping(path="/updateproject/{id}")
 	public ResponseEntity<TeProjects> updateProject(@PathVariable("id") long projectID, @RequestBody TeProjects teProjects){
-		return new ResponseEntity<TeProjects>(teProjectsService.updateProject(teProjects, projectID), HttpStatus.OK);
+		try {
+			return new ResponseEntity<TeProjects>(teProjectsService.updateProject(teProjects, projectID), HttpStatus.OK);
+		}catch(Exception e) {
+	        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+	    }
 	}
 	
 	// build delete project REST API
-	// http://localhost:8080/1
+	// http://localhost:8080/deleteProject/1
 	@DeleteMapping(path="/deleteProject/{id}")
 	public ResponseEntity<String> deleteProject(@PathVariable("id") long projectID){
-		// delete employee from DB
-		teProjectsService.deleteProject(projectID);
-		return new ResponseEntity<String>("Project Deleted Successfully!.", HttpStatus.OK);
+		try {
+			// delete employee from DB
+			teProjectsService.deleteProject(projectID);
+			return new ResponseEntity<String>("Project Deleted Successfully!.", HttpStatus.OK);
+		}catch(Exception e) {
+	        return new ResponseEntity<String>("The projectID you entered is not in the Database", HttpStatus.NOT_FOUND);
+	    }
 	}
 	
 }

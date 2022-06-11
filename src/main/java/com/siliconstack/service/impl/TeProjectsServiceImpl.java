@@ -9,6 +9,9 @@ import com.siliconstack.model.TeProjects;
 import com.siliconstack.repository.TeProjectsRepository;
 import com.siliconstack.service.TeProjectsService;
 
+import lombok.Data;
+
+@Data
 @Service
 public class TeProjectsServiceImpl implements TeProjectsService{
 	
@@ -19,6 +22,11 @@ public class TeProjectsServiceImpl implements TeProjectsService{
 		this.teProjectsRepository = teProjectsRepository;
 	}
 
+	@Override
+	public List<TeProjects> getProjectByProjectName(String projectName) {
+		return teProjectsRepository.findByProjectName(projectName);
+	}
+	
 	@Override
 	public TeProjects saveTeProjects(TeProjects teProjects) {
 		return teProjectsRepository.save(teProjects);
@@ -60,4 +68,12 @@ public class TeProjectsServiceImpl implements TeProjectsService{
 		teProjectsRepository.deleteById(projectID);
 
 	}
+
+	
+
+	
+
+	
+
+	
 }
