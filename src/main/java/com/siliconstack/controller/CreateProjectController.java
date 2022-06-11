@@ -38,7 +38,7 @@ public class CreateProjectController {
 			if(projectList.size() == 0 ) {
 				return new ResponseEntity<TeProjects>(teProjectsService.saveTeProjects(teProjects), HttpStatus.CREATED);
 			}		
-			return new ResponseEntity<>(null, HttpStatus.ALREADY_REPORTED);
+			return new ResponseEntity("The project name you entered has already been reported", HttpStatus.ALREADY_REPORTED);
 		}catch(Exception e) {
 	        return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 	    }
@@ -57,7 +57,7 @@ public class CreateProjectController {
 		try {
 			return new ResponseEntity<TeProjects>(teProjectsService.getProjectById(projectID), HttpStatus.OK);
 		}catch(Exception e) {
-	        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+	        return new ResponseEntity("Please provide a valid projectID", HttpStatus.NOT_FOUND);
 	    }
 	}
 	
@@ -68,7 +68,7 @@ public class CreateProjectController {
 		try {
 			return new ResponseEntity<TeProjects>(teProjectsService.updateProject(teProjects, projectID), HttpStatus.OK);
 		}catch(Exception e) {
-	        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+	        return new ResponseEntity("Please provide a valid projectID", HttpStatus.NOT_FOUND);
 	    }
 	}
 	
@@ -81,7 +81,7 @@ public class CreateProjectController {
 			teProjectsService.deleteProject(projectID);
 			return new ResponseEntity<String>("Project Deleted Successfully!.", HttpStatus.OK);
 		}catch(Exception e) {
-	        return new ResponseEntity<String>("The projectID you entered is not in the Database", HttpStatus.NOT_FOUND);
+	        return new ResponseEntity<String>("Please provide a valid projectID", HttpStatus.NOT_FOUND);
 	    }
 	}
 	
