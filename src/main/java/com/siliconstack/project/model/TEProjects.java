@@ -1,4 +1,4 @@
-package com.siliconstack.model;
+package com.siliconstack.project.model;
 
 import java.util.Date;
 
@@ -14,7 +14,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name="te_projects")
-public class TeProjects {
+public class TEProjects {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="projectID", columnDefinition = "INT")
