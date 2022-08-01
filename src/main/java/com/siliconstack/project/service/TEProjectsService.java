@@ -39,19 +39,19 @@ public class TEProjectsService {
 	}
 	
 	public TEProjects updateProject(TEProjects teProjects, long projectID) {
-		// we need to check whether employee with given projectID is exist in DB or not
-		TEProjects existingEmployee = TEProjectRepository.findById(projectID).orElseThrow(() ->
+		// we need to check whether project with given projectID is exist in DB or not
+		TEProjects existingProject = TEProjectRepository.findById(projectID).orElseThrow(() ->
 				new ResourceNotFoundException("TeProjects", "projectID", projectID));
-		existingEmployee.setProjectName(teProjects.getProjectName());
-		existingEmployee.setProjectDescription(teProjects.getProjectDescription());
-		existingEmployee.setIsDeleted(teProjects.getIsDeleted());
-		existingEmployee.setCreatedBy(teProjects.getCreatedBy());
-		existingEmployee.setCreatedOn(teProjects.getCreatedOn());
-		existingEmployee.setUpdatedBy(teProjects.getUpdatedBy());
-		existingEmployee.setUpdatedOn(teProjects.getUpdatedOn());
+		existingProject.setProjectName(teProjects.getProjectName());
+		existingProject.setProjectDescription(teProjects.getProjectDescription());
+		existingProject.setDeleted(teProjects.isDeleted());
+		existingProject.setCreatedBy(teProjects.getCreatedBy());
+		existingProject.setCreatedOn(teProjects.getCreatedOn());
+		existingProject.setUpdatedBy(teProjects.getUpdatedBy());
+		existingProject.setUpdatedOn(teProjects.getUpdatedOn());
 		// save existing Project to DB
-		TEProjectRepository.save(existingEmployee);
-		return existingEmployee;
+		TEProjectRepository.save(existingProject);
+		return existingProject;
 	}
 
 	public void deleteProject(long projectID) {

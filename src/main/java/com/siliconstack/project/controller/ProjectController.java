@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+@CrossOrigin
 @RestController
 @EnableWebMvc
 @RequestMapping(path = "/project")
@@ -55,7 +56,7 @@ public class ProjectController {
 	
 	// build update project REST API
 	// http://localhost:8080/projects/updateproject/1
-	@PutMapping(path="/updateproject/{id}")
+	@PutMapping(path="/updateProject/{id}")
 	public ResponseEntity<TEProjects> updateProject(@PathVariable("id") long projectID, @RequestBody TEProjects teProjects){
 		try {
 			return new ResponseEntity<TEProjects>(teProjectsService.updateProject(teProjects, projectID), HttpStatus.OK);
