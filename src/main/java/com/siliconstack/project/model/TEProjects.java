@@ -1,13 +1,17 @@
 package com.siliconstack.project.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -22,9 +26,11 @@ public class TEProjects {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="projectid", columnDefinition = "INT")
-	@OneToMany(mappedBy = "teProjects")
-	private Set<TEApplications> teApplications;	
 	private long projectID;
+//	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+//	@JoinColumn(name = "projectID")
+//	private List teApplications = new ArrayList<>();
+//	private long projectID;
 	
 	@Column(name="projectname", nullable = false, columnDefinition = "varchar(50)")
 	private String projectName;
@@ -51,7 +57,6 @@ public class TEProjects {
 		
 	}
 
-	
 	public TEProjects(long projectID, String projectName, String projectDescription, boolean isDeleted, int createdBy,
 			Date createdOn, int updatedBy, Date updatedOn) {
 		super();
@@ -129,17 +134,4 @@ public class TEProjects {
 		this.updatedOn = updatedOn;
 	}
 
-
-	public Set<TEApplications> getTeApplications() {
-		return teApplications;
-	}
-
-
-	public void setTeApplications(Set<TEApplications> teApplications) {
-		this.teApplications = teApplications;
-	}
-
-	
-
-		
 }

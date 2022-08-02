@@ -10,53 +10,55 @@ import java.util.Date;
 @Table(name = "te_applications")
 public class TEApplications {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "appid")
-    private long appid;
-
-    @Column(name = "appname")
-    private String appName;
-
-    @Column(name = "appdescription")
-    private String appDescription;
-
-    @Column(name = "isdeleted")
-    private boolean isDeleted;
-
-    @ManyToOne
-    @JoinColumn(name= "projectid")
-    private TEProjects teProjects;
-
-    @Column(name = "platformid")
-    private int platformID;
-
-    @Column(name = "createdby")
-    private int createdBy;
-
-    @Column(name = "createdon", nullable = false, updatable = false)
-    @CreationTimestamp
-    private Date createdOn;
-
-    @Column(name = "updatedby")
-    private int updatedBy;
-
-    @Column(name = "updatedon", nullable = false, updatable = true)
-    @CreationTimestamp
-    private Date updatedOn;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "appid")
+	private long appid;
+	
+	@Column(name = "appname")
+	private String appName;
+	
+	@Column(name = "appdescription")
+	private String appDescription;
+	
+	@Column(name = "isdeleted")
+	private boolean isDeleted;
+	
+//	@ManyToOne(fetch = FetchType.EAGER)
+//	private TEProjects teProjects;
+	
+	@Column(name = "projectid")
+	private int projectID;
+	
+	@Column(name = "platformid")
+	private int platformID;
+	
+	@Column(name = "createdby")
+	private int createdBy;
+	
+	@Column(name = "createdon", nullable = false, updatable = false)
+	@CreationTimestamp
+	private Date createdOn;
+	
+	@Column(name = "updatedby")
+	private int updatedBy;
+	
+	@Column(name = "updatedon", nullable = false, updatable = true)
+	@CreationTimestamp
+	private Date updatedOn;
 
 	public TEApplications() {
-		
+
 	}
 
-	public TEApplications(long appid, String appName, String appDescription, boolean isDeleted, TEProjects teProjects,
+	public TEApplications(long appid, String appName, String appDescription, boolean isDeleted, int projectID,
 			int platformID, int createdBy, Date createdOn, int updatedBy, Date updatedOn) {
 		super();
 		this.appid = appid;
 		this.appName = appName;
 		this.appDescription = appDescription;
 		this.isDeleted = isDeleted;
-		this.teProjects = teProjects;
+		this.projectID = projectID;
 		this.platformID = platformID;
 		this.createdBy = createdBy;
 		this.createdOn = createdOn;
@@ -96,12 +98,12 @@ public class TEApplications {
 		this.isDeleted = isDeleted;
 	}
 
-	public TEProjects getTeProjects() {
-		return teProjects;
+	public int getProjectID() {
+		return projectID;
 	}
 
-	public void setTeProjects(TEProjects teProjects) {
-		this.teProjects = teProjects;
+	public void setProjectID(int projectID) {
+		this.projectID = projectID;
 	}
 
 	public int getPlatformID() {
@@ -143,7 +145,5 @@ public class TEApplications {
 	public void setUpdatedOn(Date updatedOn) {
 		this.updatedOn = updatedOn;
 	}
-
 	
-
 }
