@@ -12,7 +12,7 @@ public interface TEProjectRepository extends JpaRepository<TEProjects, Long>{
 	
 	public List<TEProjects> findByProjectName(String projectName);
 	
-	@Query(value = "select projectid, projectname from te_projects where isdeleted = false", nativeQuery = true)
+	@Query(value = "SELECT projectid, projectname FROM te_projects WHERE isdeleted = false ORDER BY projectname ASC", nativeQuery = true)
 	public List<Map<Integer, String>> getProjectIdAndName();
 
 }
