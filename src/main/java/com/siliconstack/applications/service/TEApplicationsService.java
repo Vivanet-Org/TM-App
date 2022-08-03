@@ -1,33 +1,31 @@
 package com.siliconstack.applications.service;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import com.siliconstack.applications.dto.TEApplicationsDTO;
-import com.siliconstack.applications.exception.ResourceNotFoundException;
 import com.siliconstack.applications.model.TEApplications;
 import com.siliconstack.applications.repository.TEApplicationsRepository;
-
+import com.siliconstack.applications.exception.ResourceNotFoundException;
 import lombok.Data;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Data
 @Service
 public class TEApplicationsService {
 	
-	private TEApplicationsRepository TEApplicationsRepository;
+	private TEApplicationsRepository teApplicationsRepository;
 	
 	public TEApplicationsService(TEApplicationsRepository TEApplicationsRepository) {
 		super();
-		this.TEApplicationsRepository = TEApplicationsRepository;
+		this.teApplicationsRepository = TEApplicationsRepository;
 	}
 
 	public List<TEApplications> getApplicationByAppName(String appName) {
-		return TEApplicationsRepository.findByAppName(appName);
+		return teApplicationsRepository.findByAppName(appName);
 	}
 		
 	public TEApplications saveTeApplications(TEApplicationsDTO teApplicationsDto) throws Exception {
-        List<TEApplications> applicationsList = TEApplicationsRepository.findByAppName(teApplicationsDto.getAppName());
+        List<TEApplications> applicationsList = teApplicationsRepository.findByAppName(teApplicationsDto.getAppName());
         if (applicationsList.isEmpty()) {
         	TEApplications entityApplication = new TEApplications();
         	entityApplication.setAppName(teApplicationsDto.getAppName());
@@ -39,23 +37,23 @@ public class TEApplicationsService {
         	entityApplication.setUpdatedBy(teApplicationsDto.getUpdatedBy());
         	entityApplication.setUpdatedOn(teApplicationsDto.getUpdatedOn());
         	entityApplication.setDeleted(teApplicationsDto.isDeleted());
-            return TEApplicationsRepository.save(entityApplication);
+            return teApplicationsRepository.save(entityApplication);
         }
         return null;
 	}
 
 	public List<TEApplications> getAllTeApplications() {
-		return TEApplicationsRepository.findAll();
+		return teApplicationsRepository.findAll();
 	}
 
 	public TEApplications getApplicationById(long appid) {
-		return TEApplicationsRepository.findById(appid).orElseThrow(() ->
+		return teApplicationsRepository.findById(appid).orElseThrow(() ->
 				new ResourceNotFoundException("TeApplications", "appid", appid));
 	}
 	
 	public TEApplications updateApplication(TEApplicationsDTO teApplicationsDTO, long appid) {
 		// we need to check whether application with given projectID is exist in DB or not
-		TEApplications existingApplication = TEApplicationsRepository.findById(appid).orElseThrow(() ->
+		TEApplications existingApplication = teApplicationsRepository.findById(appid).orElseThrow(() ->
 				new ResourceNotFoundException("teApplicationsDTO", "appid", appid));
 		existingApplication.setAppName(teApplicationsDTO.getAppName());
 		existingApplication.setAppDescription(teApplicationsDTO.getAppDescription());
@@ -67,15 +65,15 @@ public class TEApplicationsService {
 		existingApplication.setUpdatedBy(teApplicationsDTO.getUpdatedBy());
 		existingApplication.setUpdatedOn(teApplicationsDTO.getUpdatedOn());
 		// save existing application to DB
-		TEApplicationsRepository.save(existingApplication);
+		teApplicationsRepository.save(existingApplication);
 		return existingApplication;
 	}
 
 	public void deleteApplication(long appid) {
 		// check whether application with given appId is exist in DB or not 
-		TEApplicationsRepository.findById(appid).orElseThrow(() ->
+		teApplicationsRepository.findById(appid).orElseThrow(() ->
 				new ResourceNotFoundException("TeApplications", "appid", appid));
-		TEApplicationsRepository.deleteById(appid);
+		teApplicationsRepository.deleteById(appid);
 
 	}
 
