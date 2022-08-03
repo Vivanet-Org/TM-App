@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class TEProjectDTO {
 
-    private long projectID;
+    private long projectid;
     private String projectName;
     private String projectDescription;
     private boolean isDeleted;
@@ -16,10 +16,10 @@ public class TEProjectDTO {
     public TEProjectDTO() {
     }
 
-	public TEProjectDTO(long projectID, String projectName, String projectDescription, boolean isDeleted, int createdBy,
+	public TEProjectDTO(long projectid, String projectName, String projectDescription, boolean isDeleted, int createdBy,
 			Date createdOn, int updatedBy, Date updatedOn) {
 		super();
-		this.projectID = projectID;
+		this.projectid = projectid;
 		this.projectName = projectName;
 		this.projectDescription = projectDescription;
 		this.isDeleted = isDeleted;
@@ -29,12 +29,12 @@ public class TEProjectDTO {
 		this.updatedOn = updatedOn;
 	}
 
-	public long getProjectID() {
-		return projectID;
+	public long getProjectid() {
+		return projectid;
 	}
 
-	public void setProjectID(long projectID) {
-		this.projectID = projectID;
+	public void setProjectid(long projectid) {
+		this.projectid = projectid;
 	}
 
 	public String getProjectName() {

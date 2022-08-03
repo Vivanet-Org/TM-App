@@ -1,13 +1,15 @@
 package com.siliconstack.applications.service;
 
-import com.siliconstack.applications.dto.TEApplicationsDTO;
-import com.siliconstack.applications.model.TEApplications;
-import com.siliconstack.applications.repository.TEApplicationsRepository;
-import com.siliconstack.applications.exception.ResourceNotFoundException;
-import lombok.Data;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.siliconstack.applications.dto.TEApplicationsDTO;
+import com.siliconstack.applications.exception.ResourceNotFoundException;
+import com.siliconstack.applications.model.TEApplications;
+import com.siliconstack.applications.repository.TEApplicationsRepository;
+
+import lombok.Data;
 
 @Data
 @Service
@@ -15,9 +17,13 @@ public class TEApplicationsService {
 	
 	private TEApplicationsRepository teApplicationsRepository;
 	
-	public TEApplicationsService(TEApplicationsRepository TEApplicationsRepository) {
+	public TEApplicationsService(TEApplicationsRepository teApplicationsRepository) {
 		super();
-		this.teApplicationsRepository = TEApplicationsRepository;
+		this.teApplicationsRepository = teApplicationsRepository;
+	}
+	
+	public List<TEApplications> getAllTeApplications() {
+		return teApplicationsRepository.findAll();
 	}
 
 	public List<TEApplications> getApplicationByAppName(String appName) {
@@ -41,47 +47,5 @@ public class TEApplicationsService {
         }
         return null;
 	}
-
-	public List<TEApplications> getAllTeApplications() {
-		return teApplicationsRepository.findAll();
-	}
-
-	public TEApplications getApplicationById(long appid) {
-		return teApplicationsRepository.findById(appid).orElseThrow(() ->
-				new ResourceNotFoundException("TeApplications", "appid", appid));
-	}
-	
-	public TEApplications updateApplication(TEApplicationsDTO teApplicationsDTO, long appid) {
-		// we need to check whether application with given projectID is exist in DB or not
-		TEApplications existingApplication = teApplicationsRepository.findById(appid).orElseThrow(() ->
-				new ResourceNotFoundException("teApplicationsDTO", "appid", appid));
-		existingApplication.setAppName(teApplicationsDTO.getAppName());
-		existingApplication.setAppDescription(teApplicationsDTO.getAppDescription());
-		existingApplication.setDeleted(teApplicationsDTO.isDeleted());
-		existingApplication.setProjectID(teApplicationsDTO.getProjectID());
-		existingApplication.setPlatformID(teApplicationsDTO.getPlatformID());
-		existingApplication.setCreatedBy(teApplicationsDTO.getCreatedBy());
-		existingApplication.setCreatedOn(teApplicationsDTO.getCreatedOn());
-		existingApplication.setUpdatedBy(teApplicationsDTO.getUpdatedBy());
-		existingApplication.setUpdatedOn(teApplicationsDTO.getUpdatedOn());
-		// save existing application to DB
-		teApplicationsRepository.save(existingApplication);
-		return existingApplication;
-	}
-
-	public void deleteApplication(long appid) {
-		// check whether application with given appId is exist in DB or not 
-		teApplicationsRepository.findById(appid).orElseThrow(() ->
-				new ResourceNotFoundException("TeApplications", "appid", appid));
-		teApplicationsRepository.deleteById(appid);
-
-	}
-
-	
-
-	
-
-	
-
 	
 }
