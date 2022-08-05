@@ -18,19 +18,23 @@ import lombok.Data;
 @Service
 public class TEProjectsService {
 	
-	private TEProjectRepository TEProjectRepository;
+	private TEProjectRepository teProjectRepository;
 	
-	public TEProjectsService(TEProjectRepository TEProjectRepository) {
+	public TEProjectsService(TEProjectRepository teProjectRepository) {
 		super();
-		this.TEProjectRepository = TEProjectRepository;
+		this.teProjectRepository = teProjectRepository;
 	}
 
+	public List<TEProjects> getAllTeProjects() {
+		return teProjectRepository.findAll();
+	}
+	
 	public List<TEProjects> getProjectByProjectName(String projectName) {
-		return TEProjectRepository.findByProjectName(projectName);
+		return teProjectRepository.findByProjectName(projectName);
 	}
 	
 	public TEProjects saveTeProjects(TEProjectDTO teProjectsDTO){
-        List<TEProjects> projectsList = TEProjectRepository.findByProjectName(teProjectsDTO.getProjectName());
+        List<TEProjects> projectsList = teProjectRepository.findByProjectName(teProjectsDTO.getProjectName());
         if (projectsList.isEmpty()) {
         	TEProjects entityProject = new TEProjects();
         	entityProject.setProjectName(teProjectsDTO.getProjectName());
@@ -40,24 +44,15 @@ public class TEProjectsService {
         	entityProject.setUpdatedBy(teProjectsDTO.getUpdatedBy());
         	entityProject.setUpdatedOn(teProjectsDTO.getUpdatedOn());
         	entityProject.setDeleted(teProjectsDTO.isDeleted());
-            return TEProjectRepository.save(entityProject);
+            return teProjectRepository.save(entityProject);
         }
         return null;
 	}
 
-	public List<TEProjects> getAllTeProjects() {
-		return TEProjectRepository.findAll();
-	}
-
-	public TEProjects getProjectById(long projectID) {
-		return TEProjectRepository.findById(projectID).orElseThrow(() ->
-				new ResourceNotFoundException("TeProjects", "projectID", projectID));
-	}
-	
-	public TEProjects updateProject(TEProjectDTO teProjectDTO, long projectID) {
+	public TEProjects updateProject(TEProjectDTO teProjectDTO, long projectid) {
 		// we need to check whether project with given projectID is exist in DB or not
-		TEProjects existingProject = TEProjectRepository.findById(projectID).orElseThrow(() ->
-				new ResourceNotFoundException("TeProjects", "projectID", projectID));
+		TEProjects existingProject = teProjectRepository.findById(projectid).orElseThrow(() ->
+				new ResourceNotFoundException("TeProjects", "projectid", projectid));
 		existingProject.setProjectName(teProjectDTO.getProjectName());
 		existingProject.setProjectDescription(teProjectDTO.getProjectDescription());
 		existingProject.setDeleted(teProjectDTO.isDeleted());
@@ -66,20 +61,19 @@ public class TEProjectsService {
 		existingProject.setUpdatedBy(teProjectDTO.getUpdatedBy());
 		existingProject.setUpdatedOn(teProjectDTO.getUpdatedOn());
 		// save existing Project to DB
-		TEProjectRepository.save(existingProject);
+		teProjectRepository.save(existingProject);
 		return existingProject;
 	}
 	
-	public void deleteProject(long projectID) {
+	public void deleteProject(long projectid) {
 		// check whether Project with given projectID is exist in DB or not 
-		TEProjectRepository.findById(projectID).orElseThrow(() ->
-				new ResourceNotFoundException("TeProjects", "projectID", projectID));
-		TEProjectRepository.deleteById(projectID);
-
+		teProjectRepository.findById(projectid).orElseThrow(() ->
+				new ResourceNotFoundException("TeProjects", "projectid", projectid));
+		teProjectRepository.deleteById(projectid);
 	}
 
 	public List<Map<Integer, String>> getProjectIdAndProjectName() {
-		return TEProjectRepository.getProjectIdAndName();
+		return teProjectRepository.getProjectIdAndName();
 	}
 	
 }

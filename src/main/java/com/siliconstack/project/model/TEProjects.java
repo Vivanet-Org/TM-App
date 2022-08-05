@@ -26,7 +26,7 @@ public class TEProjects {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="projectid", columnDefinition = "INT")
-	private long projectID;
+	private long projectid;
 //	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 //	@JoinColumn(name = "projectID")
 //	private List teApplications = new ArrayList<>();
@@ -57,10 +57,10 @@ public class TEProjects {
 		
 	}
 
-	public TEProjects(long projectID, String projectName, String projectDescription, boolean isDeleted, int createdBy,
+	public TEProjects(long projectid, String projectName, String projectDescription, boolean isDeleted, int createdBy,
 			Date createdOn, int updatedBy, Date updatedOn) {
 		super();
-		this.projectID = projectID;
+		this.projectid = projectid;
 		this.projectName = projectName;
 		this.projectDescription = projectDescription;
 		this.isDeleted = isDeleted;
@@ -70,12 +70,12 @@ public class TEProjects {
 		this.updatedOn = updatedOn;
 	}
 
-	public long getProjectID() {
-		return projectID;
+	public long getProjectid() {
+		return projectid;
 	}
 
-	public void setProjectID(long projectID) {
-		this.projectID = projectID;
+	public void setProjectid(long projectid) {
+		this.projectid = projectid;
 	}
 
 	public String getProjectName() {
@@ -133,5 +133,7 @@ public class TEProjects {
 	public void setUpdatedOn(Date updatedOn) {
 		this.updatedOn = updatedOn;
 	}
+
+	
 
 }
