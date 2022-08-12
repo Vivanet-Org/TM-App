@@ -33,6 +33,10 @@ public class TEProjectsService {
 		return teProjectRepository.findByProjectName(projectName);
 	}
 	
+	public List<TEProjects> searchProjectByNameAndDescription(String searchString) {
+		return teProjectRepository.searchProjectByNameAndDescription(searchString);
+	}
+	
 	public TEProjects saveTeProjects(TEProjectDTO teProjectsDTO){
         List<TEProjects> projectsList = teProjectRepository.findByProjectName(teProjectsDTO.getProjectName());
         if (projectsList.isEmpty()) {

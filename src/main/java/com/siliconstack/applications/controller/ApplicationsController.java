@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 
 @CrossOrigin
@@ -29,14 +31,11 @@ public class ApplicationsController {
 
     @PostConstruct
     public void initialize() {
-        setHeaders();
-    }
-
-    private void setHeaders() {
         headers = new HttpHeaders();
         headers.add("X-Requested-With", "*");
         headers.add("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, PATCH, OPTIONS");
         headers.add("Access-Control-Allow-Headers", "Content-Type,X-Amz-Date,Authorization,X-Api-Key,x-requested-with");
+
     }
 
 //    public ApplicationsController(TEApplicationsService teApplicationsService) {
@@ -61,11 +60,28 @@ public class ApplicationsController {
                 log.info("new project created");
                 return ResponseEntity.status(HttpStatus.CREATED).body(newApplications);
             }
-            log.info("Project already exists");
+            log.info("  already exists");
             return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).headers(headers).body(null);
         } catch (Exception e) {
             log.error("Error in addProject: {} ", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).headers(headers).body(null);
         }
     }
+    
+    @GetMapping(path = "searchApplications/{id}")
+    public ResponseEntity<Iterable<TEApplications>> serachApplicationByProject(@PathVariable("id") int projectId) {
+    	List<TEApplications> applicationList = teApplicationsService.searchApplicationsByProjectId(projectId);
+    	
+    	return ResponseEntity.status(HttpStatus.OK).headers(headers).body(applicationList);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

@@ -47,5 +47,9 @@ public class TEApplicationsService {
         }
         return null;
 	}
+
+	public List<TEApplications> searchApplicationsByProjectId(int projectId) {
+		return teApplicationsRepository.searchApplicationsByProjectId(projectId);
+	}
 	
 }
