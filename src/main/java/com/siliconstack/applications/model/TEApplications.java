@@ -1,6 +1,6 @@
 package com.siliconstack.applications.model;
 
-import com.siliconstack.project.model.TEProjects;
+// import com.siliconstack.project.model.TEProjects;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
