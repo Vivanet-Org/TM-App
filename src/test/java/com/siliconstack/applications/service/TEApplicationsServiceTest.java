@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +24,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import com.siliconstack.applications.dto.TEApplicationsDTO;
 import com.siliconstack.applications.model.TEApplications;
 import com.siliconstack.applications.repository.TEApplicationsRepository;
+import com.siliconstack.project.exception.ResourceNotFoundException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TEApplicationsServiceTest {
@@ -64,6 +66,37 @@ public class TEApplicationsServiceTest {
 	        when(teApplicationsRepository.findByAppName(anyString())).thenReturn(applicationsList);
 	        TEApplications result = service.saveTeApplications(teApplicationsDTO);
 	        assertNull(result);
+	    }
+	    
+	    @Test
+	    public void update_application_when_there_is_change() {
+	    	TEApplicationsDTO teApplicationsDTO = new TEApplicationsDTO(0,"App1", "Test Applicatio", false, 0, 0, 1234, new Date(), 0, null);
+	        long appID = 0;
+	        Optional<TEApplications> teApplications = Optional.of(new TEApplications(0,"App123", "Test Applicatio", false, 0, 0, 1234, new Date(), 0, null));
+	        TEApplications newApplication = new TEApplications(0,"App1", "Test Applicatio", false, 0, 0, 1234, new Date(), 0, null);
+
+	        when(teApplicationsRepository.findById(appID)).thenReturn(teApplications);
+
+	        when(teApplicationsRepository.save(any(TEApplications.class))).thenReturn(newApplication);
+
+	        TEApplications result = service.updateApplication(teApplicationsDTO, appID);
+	        assertEquals(result.getAppName(), teApplicationsDTO.getAppName());
+	    }
+
+	    @Test(expected = ResourceNotFoundException.class)
+	    public void throw_exception_if_application_not_found_during_update() {
+	        when(teApplicationsRepository.findById((long) 0)).thenReturn( Optional.empty());
+
+	        TEApplications result = service.updateApplication(new TEApplicationsDTO(), 0);
+	    }
+
+	    @Test
+	    public void delete_application_if_available() {
+	        long appID = 0;
+	        Optional<TEApplications> teApplications = Optional.of(new TEApplications(0,"App1", "Test Applicatio", false, 0, 0, 1234, new Date(), 0, null));
+	        when(teApplicationsRepository.findById(appID)).thenReturn(teApplications);
+	        service.deleteApplication(appID);
+
 	    }
 
 }

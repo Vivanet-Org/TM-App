@@ -3,6 +3,7 @@ package com.siliconstack.applications.controller;
 import com.siliconstack.applications.dto.TEApplicationsDTO;
 import com.siliconstack.applications.model.TEApplications;
 import com.siliconstack.applications.service.TEApplicationsService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,4 +69,29 @@ public class ApplicationsController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).headers(headers).body(null);
         }
     }
+    
+    // build update Application REST API
+ 	// http://localhost:8090/application/updateApplication/1
+ 	@PutMapping(path="/updateApplication/{id}")
+ 	public ResponseEntity<TEApplications> updateApplication(@PathVariable("id") long appid, @RequestBody TEApplicationsDTO teApplicationsDTO){
+ 		try {
+ 			return new ResponseEntity<TEApplications>(teApplicationsService.updateApplication(teApplicationsDTO, appid), HttpStatus.OK);
+ 		}catch(Exception e) {
+ 	        return new ResponseEntity("Please provide a valid appid", HttpStatus.NOT_FOUND);
+ 	    }
+ 	}
+ 	
+ 	// build delete Application REST API
+ 	// http://localhost:8090/application/deleteApplication/1
+ 	@DeleteMapping(path="/deleteApplication/{id}")
+ 	public ResponseEntity<String> deleteApplication(@PathVariable("id") long appid){
+ 		try {
+ 			// delete Application from DB
+ 			teApplicationsService.deleteApplication(appid);
+ 			return new ResponseEntity<String>("Application Deleted Successfully!.", HttpStatus.OK);
+ 		}catch(Exception e) {
+ 	        return new ResponseEntity<String>("Please provide a valid appID", HttpStatus.NOT_FOUND);
+ 	    }
+ 	}
+ 	
 }
