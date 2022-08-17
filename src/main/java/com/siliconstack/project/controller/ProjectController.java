@@ -3,10 +3,14 @@ package com.siliconstack.project.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
+import com.siliconstack.applications.model.TEApplications;
 import com.siliconstack.project.dto.TEProjectDTO;
 import com.siliconstack.project.model.TEProjects;
 import com.siliconstack.project.service.TEProjectsService;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +25,17 @@ public class ProjectController {
 	
     private TEProjectsService teProjectsService;
 
+    private HttpHeaders headers;
+
+    @PostConstruct
+    public void initialize() {
+        headers = new HttpHeaders();
+        headers.add("X-Requested-With", "*");
+        headers.add("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, PATCH, OPTIONS");
+        headers.add("Access-Control-Allow-Headers", "Content-Type,X-Amz-Date,Authorization,X-Api-Key,x-requested-with");
+
+    }
+    
 	public ProjectController(TEProjectsService teProjectsService) {
 		super();
 		this.teProjectsService = teProjectsService;
@@ -28,8 +43,8 @@ public class ProjectController {
 	
 	// build get all projects REST API
 	@GetMapping(path="/getAllProjects")
-	public List<TEProjects> getAllTeProjects(){
-		return teProjectsService.getAllTeProjects();
+	public ResponseEntity<Iterable<TEProjects>> getAllTeProjects(){
+		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(teProjectsService.getAllTeProjects());
 	}
 	
 	// build create project REST API
@@ -74,6 +89,11 @@ public class ProjectController {
 	@GetMapping(path="/getProjectIdProjectName")
 	public List<Map<Integer, String>> getProjectIdProjectName(){
 		return teProjectsService.getProjectIdAndProjectName();
+	}
+	
+	@GetMapping(path="/searchProjects/{searchStr}")
+	public List<TEProjects> searchProjects(@PathVariable("searchStr") String searchString) {
+		return teProjectsService.searchProjectByNameAndDescription(searchString);
 	}
 	
 }
