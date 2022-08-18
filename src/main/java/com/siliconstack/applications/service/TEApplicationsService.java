@@ -72,10 +72,5 @@ public class TEApplicationsService {
 		teApplicationsRepository.findById(appid).orElseThrow(() -> 
 		new ResourceNotFoundException("TEApplications", "appid", appid));
 		teApplicationsRepository.deleteById(appid);		
-	}
-	
-	public List<TEApplications> searchApplicationsByProjectId(int projectId) {
-		return teApplicationsRepository.searchApplicationsByProjectId(projectId);
-	}
-	
+	}	
 }

@@ -14,8 +14,4 @@ public interface TEApplicationsRepository extends JpaRepository<TEApplications, 
 	
 	@Query(value = "SELECT * FROM te_applications WHERE projectid = :projectId", nativeQuery = true)
 	public List<TEApplications> searchApplicationsByProjectId(int projectId);
-
-	@Query(value = "SELECT * FROM te_applications WHERE projectid = :projectId", nativeQuery = true)
-	public List<TEApplications> searchApplicationsByProjectId(int projectId);
-
 }
