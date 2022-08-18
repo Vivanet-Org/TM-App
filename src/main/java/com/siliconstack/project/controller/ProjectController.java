@@ -35,7 +35,7 @@ public class ProjectController {
         headers.add("Access-Control-Allow-Headers", "Content-Type,X-Amz-Date,Authorization,X-Api-Key,x-requested-with");
 
     }
-
+   
 	public ProjectController(TEProjectsService teProjectsService) {
 		super();
 		this.teProjectsService = teProjectsService;
@@ -95,17 +95,4 @@ public class ProjectController {
 	public List<TEProjects> searchProjects(@PathVariable("searchStr") String searchString) {
 		return teProjectsService.searchProjectByNameAndDescription(searchString);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

@@ -98,5 +98,25 @@ public class ApplicationsControllerTest {
          .content(asJsonString(new TEApplicationsDTO(0, "App1", "Test Application", false, 0, 0, 1234, new Date(), 0, null))))
          .andExpect(status().isCreated());
      }
+     
+     @Test
+     void testUpdateApplication_successfully() throws Exception {
+    	 TEApplicationsDTO existingApplication = new TEApplicationsDTO(0, "App1", "Test Application", false, 0, 0, 1234, new Date(), 0, null);
+    	 TEApplications updatedApplications = new TEApplications(0, "App2", "Test Application", false, 0, 0, 1234, new Date(), 0, null);
+
+         when(teApplicationsService.updateApplication(existingApplication, 0)).thenReturn(updatedApplications);
+
+         mockMvc.perform(MockMvcRequestBuilders.put("/application/updateApplication/{id}", 0, existingApplication)
+         .contentType(MediaType.APPLICATION_JSON)
+         .accept(MediaType.APPLICATION_JSON)
+         .content(asJsonString(new TEApplicationsDTO(0, "App1", "Test Application", false, 0, 0, 1234, new Date(), 0, null))))
+         .andExpect(status().isOk());
+     }
+
+     @Test
+     void testDeleteApplication() throws Exception {
+         mockMvc.perform(MockMvcRequestBuilders.delete("/application/deleteApplication/{id}", 0))
+         .andExpect(status().isOk());
+     }
 
 }

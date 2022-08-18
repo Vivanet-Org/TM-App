@@ -15,14 +15,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.siliconstack.project.dto.TEProjectDTO;
-import com.siliconstack.project.exception.ResourceNotFoundException;
 import com.siliconstack.project.model.TEProjects;
 import com.siliconstack.project.repository.TEProjectRepository;
 

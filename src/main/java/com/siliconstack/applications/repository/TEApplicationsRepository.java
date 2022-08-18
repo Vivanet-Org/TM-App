@@ -11,6 +11,9 @@ import com.siliconstack.applications.model.TEApplications;
 public interface TEApplicationsRepository extends JpaRepository<TEApplications, Long>{
 	
 	public List<TEApplications> findByAppName(String appName);
+	
+	@Query(value = "SELECT * FROM te_applications WHERE projectid = :projectId", nativeQuery = true)
+	public List<TEApplications> searchApplicationsByProjectId(int projectId);
 
 	@Query(value = "SELECT * FROM te_applications WHERE projectid = :projectId", nativeQuery = true)
 	public List<TEApplications> searchApplicationsByProjectId(int projectId);
