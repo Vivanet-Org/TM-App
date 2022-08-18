@@ -14,5 +14,8 @@ public interface TEProjectRepository extends JpaRepository<TEProjects, Long>{
 	
 	@Query(value = "SELECT projectid, projectname FROM te_projects WHERE isdeleted = false ORDER BY projectname ASC", nativeQuery = true)
 	public List<Map<Integer, String>> getProjectIdAndName();
+	
+	@Query(value = "SELECT *" + " FROM te_projects WHERE (projectname LIKE %:searchString% OR projectdescription LIKE %:searchString%) ", nativeQuery = true)
+	public List<TEProjects> searchProjectByNameAndDescription(String searchString);
 
 }

@@ -48,4 +48,30 @@ public class TEApplicationsService {
         return null;
 	}
 	
+	public TEApplications updateApplication(TEApplicationsDTO teApplicationsDTO, long appid) {
+		// we need to check whether application with given appId is exist in DB or not
+		TEApplications existingApplications = teApplicationsRepository.findById(appid).orElseThrow(() -> 
+		new ResourceNotFoundException("TEApplications", "appid", appid));		
+		existingApplications.setAppName(teApplicationsDTO.getAppName());
+		existingApplications.setAppDescription(teApplicationsDTO.getAppDescription());
+		existingApplications.setDeleted(teApplicationsDTO.isDeleted());
+		existingApplications.setProjectID(teApplicationsDTO.getProjectID());
+		existingApplications.setUpdatedBy(teApplicationsDTO.getUpdatedBy());
+		existingApplications.setUpdatedOn(teApplicationsDTO.getUpdatedOn());
+		// save existing Project to DB
+		teApplicationsRepository.save(existingApplications);
+		return existingApplications;
+	}
+	
+	public void deleteApplication(long appid) {
+		// check whether application with given appId is exist in DB or not 
+		teApplicationsRepository.findById(appid).orElseThrow(() -> 
+		new ResourceNotFoundException("TEApplications", "appid", appid));
+		teApplicationsRepository.deleteById(appid);		
+	}
+	
+	public List<TEApplications> searchApplicationsByProjectId(int projectId) {
+		return teApplicationsRepository.searchApplicationsByProjectId(projectId);
+	}
+	
 }
