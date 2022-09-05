@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.siliconstack.applications.dto.TEApplicationsDTO;
-import com.siliconstack.applications.exception.ResourceNotFoundException;
+import com.siliconstack.exception.ResourceNotFoundException;
 import com.siliconstack.applications.model.TEApplications;
 import com.siliconstack.applications.repository.TEApplicationsRepository;
 
