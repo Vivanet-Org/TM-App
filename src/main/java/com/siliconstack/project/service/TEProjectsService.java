@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.siliconstack.applications.model.TEApplications;
 import com.siliconstack.project.dto.TEProjectDTO;
-import com.siliconstack.project.exception.ResourceNotFoundException;
+import com.siliconstack.exception.ResourceNotFoundException;
 import com.siliconstack.project.model.TEProjects;
 import com.siliconstack.project.repository.TEProjectRepository;
 

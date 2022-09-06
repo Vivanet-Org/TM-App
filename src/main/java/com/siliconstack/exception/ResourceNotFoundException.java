@@ -1,4 +1,4 @@
-package com.siliconstack.project.exception;
+package com.siliconstack.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

@@ -24,7 +24,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 import com.siliconstack.applications.dto.TEApplicationsDTO;
 import com.siliconstack.applications.model.TEApplications;
 import com.siliconstack.applications.repository.TEApplicationsRepository;
-import com.siliconstack.project.exception.ResourceNotFoundException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TEApplicationsServiceTest {
