@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
@@ -97,4 +98,9 @@ public class ApplicationsController {
 
      	return ResponseEntity.status(HttpStatus.OK).headers(headers).body(applicationList);
      }
+ 	// build get appId appName REST API
+  	@GetMapping(path="/getAllAppNames")
+  	public List<Map<Integer, String>> getAppIdName(){
+  		return teApplicationsService.getAppIdAndName();
+  	}
 }
