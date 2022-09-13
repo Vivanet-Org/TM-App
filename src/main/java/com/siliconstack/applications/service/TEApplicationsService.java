@@ -1,6 +1,7 @@
 package com.siliconstack.applications.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -72,5 +73,14 @@ public class TEApplicationsService {
 		teApplicationsRepository.findById(appid).orElseThrow(() -> 
 		new ResourceNotFoundException("TEApplications", "appid", appid));
 		teApplicationsRepository.deleteById(appid);		
-	}	
+	}
+	
+	public List<TEApplications> searchApplicationsByProjectId(int projectId) {
+		return teApplicationsRepository.searchApplicationsByProjectId(projectId);
+	
+	}
+	public List<Map<Integer, String>> getAppIdAndName() {
+		return teApplicationsRepository.getAppIdAndAppName();
+	}
+
 }
