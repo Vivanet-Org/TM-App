@@ -48,6 +48,10 @@ public class TEApplicationsService {
         }
         return null;
 	}
+
+	public List<TEApplications> searchApplicationsByProjectId(int projectId) {
+		return teApplicationsRepository.searchApplicationsByProjectId(projectId);
+	}
 	
 	public TEApplications updateApplication(TEApplicationsDTO teApplicationsDTO, long appid) {
 		// we need to check whether application with given appId is exist in DB or not
@@ -78,5 +82,5 @@ public class TEApplicationsService {
 	public List<Map<Integer, String>> getAppIdAndName() {
 		return teApplicationsRepository.getAppIdAndAppName();
 	}
-	
+
 }

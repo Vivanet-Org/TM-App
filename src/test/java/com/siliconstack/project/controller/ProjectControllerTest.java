@@ -73,7 +73,7 @@ public class ProjectControllerTest {
 //         .content(asJsonString(new TEProjectDTO(0, "Project1", "Description", false, 0, null, 0, null))))
 //         .andExpect(status().isAlreadyReported());
 //     }
-//
+
 //     @Test
 //     public void testCreateProject_ifProjectObjectIsNull() throws Exception {
 //         TEProjectDTO project = new TEProjectDTO();

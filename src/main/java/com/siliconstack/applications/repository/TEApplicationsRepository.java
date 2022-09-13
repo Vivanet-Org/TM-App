@@ -16,7 +16,6 @@ public interface TEApplicationsRepository extends JpaRepository<TEApplications, 
 	@Query(value = "SELECT * FROM te_applications WHERE projectid = :projectId", nativeQuery = true)
 	public List<TEApplications> searchApplicationsByProjectId(int projectId);
 
-	
-     @Query(value = "SELECT appid, appname FROM te_applications WHERE isdeleted = false ORDER BY appname ASC", nativeQuery = true)
-	 public List<Map<Integer, String>> getAppIdAndAppName();
+  @Query(value = "SELECT appid, appname FROM te_applications WHERE isdeleted = false ORDER BY appname ASC", nativeQuery = true)
+  public List<Map<Integer, String>> getAppIdAndAppName();
 }
