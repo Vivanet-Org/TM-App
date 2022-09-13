@@ -17,5 +17,4 @@ public interface TEProjectRepository extends JpaRepository<TEProjects, Long>{
 	
 	@Query(value = "SELECT *" + " FROM te_projects WHERE (projectname LIKE %:searchString% OR projectdescription LIKE %:searchString%) ", nativeQuery = true)
 	public List<TEProjects> searchProjectByNameAndDescription(String searchString);
-
 }

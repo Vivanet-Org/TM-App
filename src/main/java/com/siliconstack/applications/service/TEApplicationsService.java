@@ -47,6 +47,10 @@ public class TEApplicationsService {
         }
         return null;
 	}
+
+	public List<TEApplications> searchApplicationsByProjectId(int projectId) {
+		return teApplicationsRepository.searchApplicationsByProjectId(projectId);
+	}
 	
 	public TEApplications updateApplication(TEApplicationsDTO teApplicationsDTO, long appid) {
 		// we need to check whether application with given appId is exist in DB or not
@@ -68,10 +72,5 @@ public class TEApplicationsService {
 		teApplicationsRepository.findById(appid).orElseThrow(() -> 
 		new ResourceNotFoundException("TEApplications", "appid", appid));
 		teApplicationsRepository.deleteById(appid);		
-	}
-	
-	public List<TEApplications> searchApplicationsByProjectId(int projectId) {
-		return teApplicationsRepository.searchApplicationsByProjectId(projectId);
-	}
-	
+	}	
 }

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import java.util.List;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 
 @CrossOrigin
@@ -35,6 +37,7 @@ public class ApplicationsController {
         headers.add("X-Requested-With", "*");
         headers.add("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, PATCH, OPTIONS");
         headers.add("Access-Control-Allow-Headers", "Content-Type,X-Amz-Date,Authorization,X-Api-Key,x-requested-with");
+
     }
 
 //    public ApplicationsController(TEApplicationsService teApplicationsService) {
@@ -67,6 +70,14 @@ public class ApplicationsController {
         }
     }
     
+
+    @GetMapping(path = "searchApplications/{id}")
+    public ResponseEntity<Iterable<TEApplications>> serachApplicationByProject(@PathVariable("id") int projectId) {
+    	List<TEApplications> applicationList = teApplicationsService.searchApplicationsByProjectId(projectId);
+    	
+    	return ResponseEntity.status(HttpStatus.OK).headers(headers).body(applicationList);
+    }
+
     // build update Application REST API
  	// http://localhost:8090/application/updateApplication/1
  	@PutMapping(path="/updateApplication/{id}")
@@ -90,11 +101,4 @@ public class ApplicationsController {
  	        return new ResponseEntity<String>("Please provide a valid appID", HttpStatus.NOT_FOUND);
  	    }
  	}
- 	
- 	 @GetMapping(path = "searchApplications/{id}")
-     public ResponseEntity<Iterable<TEApplications>> serachApplicationByProject(@PathVariable("id") int projectId) {
-     	List<TEApplications> applicationList = teApplicationsService.searchApplicationsByProjectId(projectId);
-
-     	return ResponseEntity.status(HttpStatus.OK).headers(headers).body(applicationList);
-     }
 }
