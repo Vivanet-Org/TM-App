@@ -49,10 +49,6 @@ public class TEApplicationsService {
         return null;
 	}
 
-	public List<TEApplications> searchApplicationsByProjectId(int projectId) {
-		return teApplicationsRepository.searchApplicationsByProjectId(projectId);
-	}
-	
 	public TEApplications updateApplication(TEApplicationsDTO teApplicationsDTO, long appid) {
 		// we need to check whether application with given appId is exist in DB or not
 		TEApplications existingApplications = teApplicationsRepository.findById(appid).orElseThrow(() -> 
